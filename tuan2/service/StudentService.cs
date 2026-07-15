@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace tuan2.service
 {
@@ -12,7 +13,7 @@ namespace tuan2.service
 
         public void AddStudent(Studentt s)
         {
-            
+
             danhsach.Add(s);
 
 

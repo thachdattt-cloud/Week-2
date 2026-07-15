@@ -8,11 +8,11 @@ namespace tuan2.service
 {
     internal class Studentt
     {
-        private int _id {  get; set; }
+        private int _id { get; set; }
         private string _name { get; set; }
         private int _age { get; set; }
-        private string _class {  get; set; }
-        private double _score {  get; set; }
+        private string _class { get; set; }
+        private double _score { get; set; }
 
         public Studentt()
         {
@@ -23,7 +23,7 @@ namespace tuan2.service
             _score = 0;
         }
 
-        public Studentt(int id,string name, int age, string @class, double score)
+        public Studentt(int id, string name, int age, string @class, double score)
         {
             Id = id;
             Name = name;
@@ -34,7 +34,7 @@ namespace tuan2.service
 
         //
 
-        public  int Id
+        public int Id
         {
             get => _id;
             set
@@ -44,7 +44,8 @@ namespace tuan2.service
             }
         }
 
-        public string Name {
+        public string Name
+        {
             get => _name;
             set
             {
@@ -83,15 +84,16 @@ namespace tuan2.service
             }
         }
 
-        public double Score{
-        get => _score;
+        public double Score
+        {
+            get => _score;
             set
             {
                 if (value > 0 && value <= 10) _score = value;
                 else throw new ArgumentException("diem phai nam trong khoang tu 0 den 10");
 
             }
-        
+
         }
 
 

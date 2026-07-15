@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using tuan2;
+﻿
 //using tuan2.Abstraction;
 //using tuan2.Inheritance;
 //using tuan2.Interface;
@@ -40,9 +39,9 @@ namespace tuan2
             //y.show2();
 
             var service = new EmployeeService();
-            service.Add(new FullTimeEmployee( "An",1, 10000000));
-            service.Add(new PartTimeEmployee( "Bình",2, 100000, 80));
-            service.Add(new Manager( "Hoa",3, 20000000, 5000000));
+            service.Add(new FullTimeEmployee("An", 1, 10000000));
+            service.Add(new PartTimeEmployee("Bình", 2, 100000, 80));
+            service.Add(new Manager("Hoa", 3, 20000000, 5000000));
 
             service.DisplayInfo();
 

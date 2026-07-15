@@ -11,7 +11,7 @@ namespace tuan2.QuanLyNhanVien
         public void Add(T item);
         public bool Removee(int id);
 
-        public List<Employee> GetAll ();
+        public List<T> GetAll ();
 
     }
 }

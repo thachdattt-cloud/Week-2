@@ -5,7 +5,7 @@ namespace tuan2.service
     internal class Bai2
     {
         // Hàm nhập liệu từ Console, trả về 1 Student
-        private  Studentt NhapSinhVien()
+        private Studentt NhapSinhVien()
         {
             Console.WriteLine("Id :");
             int id = int.Parse(Console.ReadLine());
@@ -36,7 +36,7 @@ namespace tuan2.service
         }
 
         // Hàm chạy toàn bộ demo của bài 2, được Program gọi vào
-        public  void Run()
+        public void Run()
         {
             StudentService service = new StudentService();
 
