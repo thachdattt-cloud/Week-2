@@ -49,7 +49,7 @@ EmployeeService: loop qua List<Employee> và gọi GetReport()/CalculateSalary()
 
 
 Cấu trúc project 
-
+###
 tuan2/
 ├── Abstraction/
 │   ├── Shape.cs
@@ -73,3 +73,29 @@ tuan2/
 ├── bai2.cs
 ├── Program.cs
 └── StudentService.cs
+
+###
+---
+
+## Ngày 3 — LINQ
+
+### Nội dung đã học
+Lambda expression: viết hàm không tên bằng `=>`, dùng với các delegate có sẵn (`Func`, `Action`, `Predicate`). LINQ Where: lọc dữ liệu theo điều kiện, trả về `IEnumerable<T>` (lazy evaluation). Select: biến đổi dữ liệu, có thể lấy 1 field hoặc tạo object ẩn danh. OrderBy/OrderByDescending/ThenBy: sắp xếp theo 1 hoặc nhiều tiêu chí. GroupBy: nhóm phần tử theo key, mỗi nhóm có `Key` và các phần tử con truy cập được qua vòng lặp. Kết hợp GroupBy với các hàm thống kê (`Average`, `Max`/`MaxBy`, `Count`) để tính toán riêng cho từng nhóm.
+
+### Đã triển khai
+`Student.cs`: entity chứa thông tin sinh viên (Id, Name, Age, Class, Score, Gender). `LambdaDemo.cs`: minh họa cách viết Lambda với `Func` và `Predicate`, tách riêng khỏi entity `Student` để không lẫn logic demo vào class dữ liệu. `StudentService.cs`: chứa toàn bộ các thao tác LINQ, gồm `FilterByAge()`/`FilterByClass()` (Where), `ShowStudentNames()` (Select), `ShowNamesOfStudentsOverAge()` (Where + Select), `ShowTop3Students()` (OrderByDescending + Take), `SortByClassAndScore()` (OrderBy + ThenBy), `GroupByClass()`/`GroupByScoreLevel()` (GroupBy), và `ShowClassStatistics()` (GroupBy + Average/MaxBy/Count) — tính điểm trung bình, sinh viên điểm cao nhất theo từng lớp. `ShowMenu()`: menu console điều phối gọi từng chức năng trên để test riêng lẻ.
+
+### Ghi chú
+Áp dụng naming convention nhất quán: PascalCase cho class/method (`StudentService`, `FilterByAge`), camelCase cho biến local (`studentsOverAge`, `choice`), tiền tố `_` cho field private (`_students`), tên method bắt đầu bằng động từ mô tả rõ hành động (`Show...`, `Filter...`, `Sort...`, `Group...`).
+
+### Cấu trúc project (bổ sung)
+```
+tuan2/
+├── LINQ/
+│   ├── Student.cs
+│   ├── LambdaDemo.cs
+│   └── StudentService.cs
+```
+
+### Cách chạy Ngày 3
+Gọi `new StudentService().ShowMenu();` từ `Program.cs`, chọn số tương ứng với chức năng muốn xem trong menu console.
