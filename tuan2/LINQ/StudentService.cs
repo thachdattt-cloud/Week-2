@@ -1,9 +1,11 @@
-﻿// 2. FILE: StudentService.cs (Hoặc bạn viết luôn trong Program.cs)
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace tuan2.LINQ
 {
     internal class StudentService
     {
-        // Đưa danh sách dữ liệu ra đây
         private List<Student> _students = new List<Student>
         {
             new Student(1, "An", 20, "K19", 8.5, "Nam"),
@@ -11,169 +13,173 @@ namespace tuan2.LINQ
             new Student(3, "Chi", 21, "K20", 7.0, "Nu"),
             new Student(4, "Dung", 22, "K20", 9.2, "Nu"),
             new Student(5, "Em", 18, "K19", 3.0, "Nam"),
-            new Student(6, "tai", 22, "K20", 9.0, "Nam"),
+            new Student(6, "Tai", 22, "K20", 9.0, "Nam"),
         };
 
-
-
-
-        public void Age_Condition1()
+        // Where: lọc sinh viên từ 20 tuổi trở lên
+        public void FilterByAge()
         {
-            var list_age = _students.Where(s => s.Age >= 20).ToList();
-            foreach (var st in list_age)
+            var studentsOverAge = _students.Where(s => s.Age >= 20).ToList();
+            foreach (var student in studentsOverAge)
             {
-                Console.WriteLine($"name : {st.Name} - {st.Age}");
+                Console.WriteLine($"Name: {student.Name} - {student.Age}");
             }
         }
 
-        public void Class_Condition()
+        // Where: lọc sinh viên theo lớp K19
+        public void FilterByClass()
         {
-            var list_Class = _students.Where(s => s.Class == "K19").ToList();
-            foreach (var item in list_Class)
+            var k19Students = _students.Where(s => s.Class == "K19").ToList();
+            foreach (var student in k19Students)
             {
-                Console.WriteLine($"name : {item.Name} - {item.Class}");
+                Console.WriteLine($"Name: {student.Name} - {student.Class}");
             }
         }
 
-        public void Show_Name() {
-            
-                List<string> names=_students.Select(s=>s.Name).ToList();
-            Console.WriteLine(string.Join(" , ",names));
-            } 
-
-        public void Age_Condition2() {
-            var list_Age2=_students.Where(s=>s.Age >=20)
-                                    .Select(s=>s.Name)
-                                    .ToList();
-            foreach (var item in list_Age2)
-            {
-                Console.WriteLine($"{item}");
-            }
-
+        // Select: chỉ lấy tên
+        public void ShowStudentNames()
+        {
+            List<string> names = _students.Select(s => s.Name).ToList();
+            Console.WriteLine(string.Join(" , ", names));
         }
-        
-        public void Top3()
+
+        // Where + Select: tên của sinh viên từ 20 tuổi trở lên
+        public void ShowNamesOfStudentsOverAge()
+        {
+            var names = _students.Where(s => s.Age >= 20)
+                                  .Select(s => s.Name)
+                                  .ToList();
+            foreach (var name in names)
+            {
+                Console.WriteLine($"{name}");
+            }
+        }
+
+        // OrderByDescending + Take: top 3 điểm cao nhất
+        public void ShowTop3Students()
         {
             var top3 = _students.OrderByDescending(s => s.Score)
-                              .Take(3)
-                              .ToList();
-            foreach (var item in top3)
+                                 .Take(3)
+                                 .ToList();
+            foreach (var student in top3)
             {
-                Console.WriteLine($"name : {item.Name} - {item.Score}");
-            }
-        }
-        public void sapxeplop()
-        {
-            var sapxep = _students.OrderBy(s => s.Class)
-                                .ThenBy(s => s.Score)
-                                .ToList();
-            foreach (var item in sapxep)
-            {
-                Console.WriteLine($"{item.Class} - {item.Score}");
-            }
-        }
-        public void nhomtheolop()
-        {
-            var nhom = _students.GroupBy(s => s.Class);
-            foreach (var item in nhom)
-            {
-                Console.WriteLine($"class : {item.Key} - {item.Count()} (hoc sinh)");
+                Console.WriteLine($"Name: {student.Name} - {student.Score}");
             }
         }
 
-        public void nhomtheodiem() 
+        // OrderBy + ThenBy: sắp xếp theo lớp rồi theo điểm
+        public void SortByClassAndScore()
         {
-            var nhomdiem=_students.GroupBy(s =>
+            var sortedStudents = _students.OrderBy(s => s.Class)
+                                           .ThenBy(s => s.Score)
+                                           .ToList();
+            foreach (var student in sortedStudents)
             {
-                if (s.Score >= 8) return "gioi";
-                else if (s.Score >= 7) return "kha";
-                else return "trung binh";
+                Console.WriteLine($"{student.Class} - {student.Score}");
+            }
+        }
+
+        // GroupBy: nhóm theo lớp
+        public void GroupByClass()
+        {
+            var groupedByClass = _students.GroupBy(s => s.Class);
+            foreach (var group in groupedByClass)
+            {
+                Console.WriteLine($"Class: {group.Key} - {group.Count()} students");
+            }
+        }
+
+        // GroupBy: nhóm theo mức điểm
+        public void GroupByScoreLevel()
+        {
+            var groupedByScore = _students.GroupBy(s =>
+            {
+                if (s.Score >= 8) return "Gioi";
+                else if (s.Score >= 7) return "Kha";
+                else return "TrungBinh";
             });
-            foreach (var item in nhomdiem)
+
+            foreach (var group in groupedByScore)
             {
-                Console.WriteLine($"{item.Key}");
-                foreach (var item1 in item)
+                Console.WriteLine($"{group.Key}");
+                foreach (var student in group)
                 {
-                    Console.WriteLine($"{item1.Class} - {item1.Score}");
+                    Console.WriteLine($"{student.Class} - {student.Score}");
                 }
             }
         }
 
-        public void diemtrungbinhtunglop()
+        // GroupBy + Aggregate: thống kê theo từng lớp
+        public void ShowClassStatistics()
         {
-            var nhom = _students.GroupBy(s => s.Class);
-            foreach (var item in nhom)
+            var groupedByClass = _students.GroupBy(s => s.Class);
+            foreach (var group in groupedByClass)
             {
-                var diemtrungbinh=item.Average(s=> s.Score);
-                var diemcaonhat=item.MaxBy(s=> s.Score);
-                var soluongsinhviendattren8 = item.Count(s => s.Score >= 8);
-                Console.WriteLine($@"diem trung binh cua nhom {item.Key}
-                                 - diem trung binh :{diemtrungbinh:0.00}
-                                 - sinh vien cao nhat trong lop :{diemcaonhat.Name}
-                                 - diem cua sinh vien la {diemcaonhat.Score}
+                var averageScore = group.Average(s => s.Score);
+                var topStudent = group.MaxBy(s => s.Score);
+                var passCount = group.Count(s => s.Score >= 8);
+
+                Console.WriteLine($@"Statistics for class {group.Key}
+                                 - Average score: {averageScore:0.00}
+                                 - Top student: {topStudent.Name}
+                                 - Top score: {topStudent.Score}
 ");
-                                 
             }
-          
         }
 
-
-        public void Combine()
+        public void ShowMenu()
         {
             while (true)
             {
                 Console.WriteLine("--------------------------------");
-                Console.WriteLine("0. dung chuong trinh");
-                Console.WriteLine("1.loc theo tuoi (where) ");
-                Console.WriteLine("2.loc theo lop ");
-                Console.WriteLine("3.in  ten sinh vien");
-                Console.WriteLine("4.loc theo tuoi (where + select)");
-                Console.WriteLine("5.in ten va diem cua 3 sinh vien top dau");
-                Console.WriteLine("6.sap xep theo lop va diem");
-                Console.WriteLine("7.nhom theo lop");
-                Console.WriteLine("8.nhom theo diem");
-                Console.WriteLine("9.diem trung binh theo tung lop");
-                Console.WriteLine("nhap lua chon :");
+                Console.WriteLine("0. Thoat chuong trinh");
+                Console.WriteLine("1. Loc theo tuoi (Where)");
+                Console.WriteLine("2. Loc theo lop");
+                Console.WriteLine("3. In ten sinh vien");
+                Console.WriteLine("4. Loc theo tuoi (Where + Select)");
+                Console.WriteLine("5. In ten va diem cua 3 sinh vien top dau");
+                Console.WriteLine("6. Sap xep theo lop va diem");
+                Console.WriteLine("7. Nhom theo lop");
+                Console.WriteLine("8. Nhom theo diem");
+                Console.WriteLine("9. Diem trung binh theo tung lop");
+                Console.WriteLine("Nhap lua chon:");
                 Console.WriteLine("--------------------------------- ");
-                int lc = int.Parse(Console.ReadLine());
-                switch (lc)
-                {
 
+                int choice = int.Parse(Console.ReadLine());
+                switch (choice)
+                {
                     case 0:
                         return;
-
                     case 1:
-                        Age_Condition1();
+                        FilterByAge();
                         break;
                     case 2:
-                        Class_Condition();
+                        FilterByClass();
                         break;
                     case 3:
-                        Show_Name();
+                        ShowStudentNames();
                         break;
                     case 4:
-                        Age_Condition2();
+                        ShowNamesOfStudentsOverAge();
                         break;
                     case 5:
-                        Top3();
+                        ShowTop3Students();
                         break;
                     case 6:
-                        sapxeplop();
+                        SortByClassAndScore();
                         break;
                     case 7:
-                        nhomtheolop();
+                        GroupByClass();
                         break;
                     case 8:
-                        nhomtheodiem();
+                        GroupByScoreLevel();
                         break;
                     case 9:
-                        diemtrungbinhtunglop();
+                        ShowClassStatistics();
                         break;
-                     
                     default:
-                        Console.WriteLine("chon lai");
+                        Console.WriteLine("Chon lai");
                         break;
-
                 }
             }
         }
