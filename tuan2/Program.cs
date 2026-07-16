@@ -47,10 +47,10 @@ namespace tuan2
             //service.Add(new Manager("Hoa", 3, 20000000, 5000000));
             //service.DisplayInfo();
 
-            Student x = new Student();
-            x.handle();
+            LambdaDemo x=new LambdaDemo();
+            x.Run();
             StudentService y=new StudentService();
-            y.Combine();
+            y.ShowMenu();
         
         }
     }
