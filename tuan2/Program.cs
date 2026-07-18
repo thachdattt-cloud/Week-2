@@ -5,12 +5,14 @@
 using System.Diagnostics.CodeAnalysis;
 using tuan2.LINQ;
 using tuan2.QuanLyNhanVien;
+using tuan2.asyn_task_await;
+using System.Reflection.Metadata;
 namespace tuan2
 {
 
     public class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             // folder Service
             //Bai2 k=new Bai2();
@@ -47,11 +49,22 @@ namespace tuan2
             //service.Add(new Manager("Hoa", 3, 20000000, 5000000));
             //service.DisplayInfo();
 
-            LambdaDemo x=new LambdaDemo();
-            x.Run();
-            StudentService y=new StudentService();
-            y.ShowMenu();
-        
+            //LINQ
+            //LambdaDemo x=new LambdaDemo();
+            //x.Run();
+            //StudentService y=new StudentService();
+            //y.ShowMenu();
+
+            //Async_task_await
+            //Test x = new Test();
+            // await x.handle();
+            //DemoApi y = new DemoApi();
+            //await y.run();
+          //  cancellationToken z = new cancellationToken();
+          //await  z.RunAsync();
+          Main k=new Main();
+            await k.RunAsync(); 
+
         }
     }
 }

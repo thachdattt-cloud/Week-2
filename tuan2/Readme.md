@@ -99,3 +99,21 @@ tuan2/
 
 ### Cách chạy Ngày 3
 Gọi `new StudentService().ShowMenu();` từ `Program.cs`, chọn số tương ứng với chức năng muốn xem trong menu console.
+
+Ngày 4 — Async/Await
+
+Nội dung đã học
+
+Vì sao cần bất đồng bộ: tránh chương trình bị "đứng" (block) khi chờ tác vụ chậm (gọi API, đọc file, query DB). Task/Task<T>: đại diện cho 1 công việc đang chạy, có thể chưa hoàn thành. async/await: async đánh dấu method bất đồng bộ, await chờ kết quả của 1 Task mà không block toàn bộ chương trình. Task.Delay dùng để mô phỏng độ trễ giống gọi DB/API thật. Task.WhenAll chạy nhiều task song song thay vì tuần tự, tiết kiệm thời gian. CancellationTokenSource/CancellationToken: cơ chế chuẩn để hủy một tác vụ đang chạy giữa chừng, dùng ThrowIfCancellationRequested() để kiểm tra và OperationCanceledException để bắt lỗi khi bị hủy.
+
+Đã triển khai
+
+Gio1Demo.cs: minh họa Task<T>, async/await cơ bản qua TinhBinhPhuongAsync() và ChaoAsync(), có ví dụ đối chiếu khi gọi async mà không await. Gio2Demo.cs: mô phỏng gọi DB qua LoadStudentsFromDbAsync()/LoadTeachersFromDbAsync(), minh họa chạy song song bằng Task.WhenAll và đo thời gian bằng Stopwatch. Gio3Demo.cs: minh họa CancellationToken qua DemLuiAsync(), tự động hủy sau 3 giây bằng CancelAfter(). StudentServiceAsync.cs + Gio4Menu.cs: bài tổng hợp — LoadStudentsAsync() có hỗ trợ CancellationToken, ráp vào menu console cho phép chọn load dữ liệu bình thường hoặc load có thể hủy giữa chừng, có xử lý try/catch đầy đủ.
+tuan2/
+├── asyn_task_await/
+│   ├── cancellationToken.cs
+│   ├── DemoApi.cs
+│   ├── Test.cs
+│   ├── Student.cs
+│   ├── StudentServiceAsync.cs
+│   └── Main.cs
