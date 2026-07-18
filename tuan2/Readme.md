@@ -117,3 +117,27 @@ tuan2/
 │   ├── Student.cs
 │   ├── StudentServiceAsync.cs
 │   └── Main.cs
+**********
+
+Ngày 5 — Tổng hợp OOP/LINQ/Async: Student Console Manager v2
+
+Nội dung đã học
+
+Tổng hợp toàn bộ kiến thức OOP (Ngày 1-2), LINQ (Ngày 3), và Async (Ngày 4) vào 1 project console hoàn chỉnh, tách đúng 3 lớp: Entity (dữ liệu) → Service (nghiệp vụ, CRUD, LINQ, Async) → Program (giao diện console, nhập liệu). Chuẩn hóa toàn bộ code theo naming convention: PascalCase cho class/method, camelCase cho biến local, tiền tố _ cho field private, property/method đặt tên tiếng Anh rõ nghĩa.
+
+Đã triển khai
+
+Student.cs: entity chứa Id, Name, BirthYear, ClassName, MathScore, PhysicsScore, ChemistryScore, có CalculateAverageScore() và ClassifyRank() (dùng if/else, không dùng switch expression để dễ đọc). ICrudService.cs: interface generic định nghĩa CRUD chuẩn (Add, Remove, GetAll). StudentService.cs: implement ICrudService<Student>, có đầy đủ CRUD mở rộng (Update, RemoveByName), các thao tác LINQ (SearchByPartialName, GetSortedByScoreAscending, GetTopStudent, GetLowestStudent, GetClassAverage, GetStatisticsByRank), và 2 method Async đọc/ghi dữ liệu thật ra file (SaveToFileAsync, LoadFromFileAsync) dùng vòng lặp foreach đơn giản, dễ đọc. Program.cs: menu console gọi tới StudentService, tự động tải dữ liệu khi mở chương trình và lưu dữ liệu khi thoát/khi chọn lưu thủ công.
+
+Cấu trúc project (bổ sung)
+
+tuan2/
+├── miniProject/
+│   ├── Student.cs
+│   ├── ICrudService.cs
+│   ├── StudentService.cs
+│   └── Program.cs
+
+Cách chạy
+
+Build và chạy Program.cs trong folder miniProject. Menu console cho phép: thêm/xóa/sửa sinh viên, in danh sách, tìm kiếm gần đúng theo tên, sắp xếp theo điểm, xem thống kê (điểm trung bình cả lớp, sinh viên cao/thấp điểm nhất, số lượng theo xếp loại), và lưu dữ liệu thủ công.
